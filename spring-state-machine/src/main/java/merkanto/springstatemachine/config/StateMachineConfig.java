@@ -31,8 +31,7 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<PaymentSta
 
     @Override
     public void configure(StateMachineTransitionConfigurer<PaymentState, PaymentEvent> transitions) throws Exception {
-        transitions
-                .withExternal().source(PaymentState.NEW).target(PaymentState.NEW).event(PaymentEvent.PRE_AUTHORIZE)
+        transitions.withExternal().source(PaymentState.NEW).target(PaymentState.NEW).event(PaymentEvent.PRE_AUTHORIZE)
                 .and()
                 .withExternal().source(PaymentState.NEW).target(PaymentState.PRE_AUTH).event(PaymentEvent.PRE_AUTH_APPROVED)
                 .and()
@@ -41,12 +40,10 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<PaymentSta
 
     @Override
     public void configure(StateMachineConfigurationConfigurer<PaymentState, PaymentEvent> config) throws Exception {
-        StateMachineListenerAdapter<PaymentState, PaymentEvent> adapter = new StateMachineListenerAdapter<>() {
+        StateMachineListenerAdapter<PaymentState, PaymentEvent> adapter = new StateMachineListenerAdapter<>(){
             @Override
             public void stateChanged(State<PaymentState, PaymentEvent> from, State<PaymentState, PaymentEvent> to) {
                 log.info(String.format("stateChanged(from: %s, to: %s)", from, to));
-
-
             }
         };
 
